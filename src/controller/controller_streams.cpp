@@ -60,7 +60,7 @@ namespace Controller {
           return;
         }
         cmd1 = "cat " + URL;
-        if (Util::epock - lastBuffer[name] > 5){
+        if (Util::epoch() - lastBuffer[name] > 5){
           data["error"] = "Available";
           data["online"] = 2;
         }

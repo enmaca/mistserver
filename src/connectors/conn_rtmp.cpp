@@ -20,6 +20,7 @@
 #include <mist/rtmpchunks.h>
 #include <mist/stream.h>
 #include <mist/timing.h>
+#include <mist/auth.h>
 
 ///\brief Holds everything unique to the RTMP Connector
 namespace Connector_RTMP {
@@ -537,6 +538,21 @@ namespace Connector_RTMP {
       }
       if (ready4data){
         if ( !inited){
+        	int sp_pos = streamName.find('-');
+        	if(sp_pos>0){
+        		std::string oldstreamName = streamName.substr(0, sp_pos);
+        		std::string hash = streamName.substr(sp_pos+1);
+        		streamName = oldstreamName;
+        		if( Secure::md5(Socket.getHost().substr(7)+streamName) != hash){
+        			std::cerr << "Denied Connect! Hash Mistmatch " << hash << "!=" << Secure::md5(Socket.getHost().substr(7)+streamName) << "\n";
+        			Socket.close(); //disconnect user
+        			break;
+        		}
+        	} else {
+        		std::cerr << "Denied Connect! Hash not found! " << "\n";
+        		Socket.close(); //disconnect user
+        		break;
+        	}
           //we are ready, connect the socket!
           ss = Util::Stream::getStream(streamName);
           if ( !ss.connected()){
