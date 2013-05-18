@@ -19,7 +19,7 @@ MistBuffer_LDADD=$(MIST_LIBS) -lpthread
 MistPlayer_SOURCES=buffer/player.cpp
 
 #controller folder (MistController)
-MistController_SOURCES=controller/controller.cpp controller/controller_connectors.h controller/controller_connectors.cpp controller/controller_storage.h controller/controller_storage.cpp controller/controller_streams.h controller/controller_streams.cpp controller/controller_capabilities.h controller/controller_capabilities.cpp ../VERSION controller/server.html.h
+MistController_SOURCES=controller/controller.cpp controller/controller_connectors.h controller/controller_connectors.cpp controller/controller_storage.h controller/controller_storage.cpp controller/controller_streams.h controller/controller_streams.cpp controller/controller_basefiles.h controller/controller_basefiles.cpp controller/controller_capabilities.h controller/controller_capabilities.cpp ../VERSION controller/server.html.h
 
 #connectors folder (MistConn*)
 MistConnRAW_SOURCES=connectors/conn_raw.cpp ../VERSION

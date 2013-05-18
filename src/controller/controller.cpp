@@ -14,6 +14,7 @@
 #include "controller_connectors.h"
 #include "controller_streams.h"
 #include "controller_capabilities.h"
+#include "controller_basefiles.h"
 #include "server.html.h"
 
 #define UPLINK_INTERVAL 30
@@ -37,7 +38,7 @@ namespace Controller {
       bool clientMode;///<Indicates how to parse the commands.
       int logins;///<Keeps track of the amount of login-tries.
       std::string Username;///<The username of the user.
-      
+
       ///\brief Construct a new user from a connection.
       ///\param c The socket through which the user is connected.
       ConnectedUser(Socket::Connection c){
@@ -447,6 +448,10 @@ int main(int argc, char ** argv){
                   if (Request.isMember("clearstatlogs")){
                     Controller::Storage["log"].null();
                     Controller::Storage["statistics"].null();
+                  }
+                  //get files stored in
+                  if (Request.isMember("basefilesdir")){
+                     Controller::CheckFiles(Response["basefiles"]);
                   }
                 }
                 jsonp = "";
